@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface Slot
 {
-	List<FieldStatus> getFields();
+	List<Coin> getCoins();
 
 	void throwCoinOf(Player player);
 
