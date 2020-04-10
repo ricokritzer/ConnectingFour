@@ -10,5 +10,5 @@ public interface Game
 
 	int getRowCount();
 
-	int getColumnCount();
+	int getSlotCount();
 }
