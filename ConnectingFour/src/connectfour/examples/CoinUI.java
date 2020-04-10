@@ -13,13 +13,13 @@ public class CoinUI extends JPanel
 		this.setBackground(coin.getColor());
 	}
 
-	private CoinUI()
+	private CoinUI(Color color)
 	{
-		this.setBackground(Color.WHITE);
+		this.setBackground(color);
 	}
 
 	public static CoinUI createPlaceholder()
 	{
-		return new CoinUI();
+		return new CoinUI(Color.WHITE);
 	}
 }
