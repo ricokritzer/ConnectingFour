@@ -2,10 +2,8 @@ package connectfour.examples;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import connectfour.interfaces.GameField;
-import connectfour.interfaces.Player;
 import connectfour.interfaces.Slot;
 
 public class GameFieldImpl implements GameField
@@ -24,11 +22,5 @@ public class GameFieldImpl implements GameField
 	public List<Slot> getSlots()
 	{
 		return slots;
-	}
-
-	@Override
-	public Optional<Player> getPlayerAtFieldWithCoordinates(int x, int y)
-	{
-		return Optional.empty();
 	}
 }
