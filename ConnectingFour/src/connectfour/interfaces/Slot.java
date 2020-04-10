@@ -9,6 +9,4 @@ public interface Slot
 	void throwCoinOf(Player player);
 
 	int getRowCount();
-
-	void updateOnChange(UI ui); // UIs können sich mitteilen, dass sie Veränderungen mitgeteilt bekommen wollen
 }
