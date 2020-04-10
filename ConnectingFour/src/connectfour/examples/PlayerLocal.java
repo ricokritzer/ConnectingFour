@@ -9,11 +9,12 @@ public class PlayerLocal implements Player
 {
 	private final String name;
 	private int points;
-	private Color color = Color.RED;
+	private Color color;
 
-	public PlayerLocal(String name)
+	public PlayerLocal(String name, Color color)
 	{
 		this.name = name;
+		this.color = color;
 	}
 
 	@Override
