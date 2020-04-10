@@ -37,7 +37,7 @@ public class GameImpl implements Game
 	@Override
 	public void throwCoinInto(Slot slot)
 	{
-		if (slot.getCoins().size() < rowCount)
+		if (slot.getCoins().size() <= rowCount)
 		{
 			// noch Patz im Schacht
 			slot.throwCoinOf(currentPlayer);
