@@ -45,6 +45,20 @@ public class SlotUI extends JPanel
 		this.setLayout(new GridLayout(slot.getRowCount() + 1, 1, spaceBetweenCells, spaceBetweenCells)); // +1 für den
 		// Button
 
+		addInsertButton();
+		addCoins();
+
+		this.revalidate();
+		this.repaint();
+	}
+
+	private void addInsertButton()
+	{
+		this.add(createInsertButton(game));
+	}
+
+	private void addCoins()
+	{
 		final List<CoinUI> coinUIs = new ArrayList<>();
 		slot.getCoins().forEach(coin -> coinUIs.add(new CoinUI(coin)));
 
@@ -54,10 +68,7 @@ public class SlotUI extends JPanel
 		}
 
 		Collections.reverse(coinUIs); // wir beginnen oben zu zeichnen
-		this.add(createInsertButton(game));
-		coinUIs.forEach(coinUI -> this.add(coinUI));
 
-		this.revalidate();
-		this.repaint();
+		coinUIs.forEach(coinUI -> this.add(coinUI));
 	}
 }
