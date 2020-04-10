@@ -9,4 +9,6 @@ public interface Game
 	int getRowCount();
 
 	int getSlotCount();
+
+	Player getCurrentPlayer();
 }
