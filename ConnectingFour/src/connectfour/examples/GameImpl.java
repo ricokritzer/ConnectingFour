@@ -50,12 +50,18 @@ public class GameImpl implements Game
 	{
 		if (currentPlayer == player1)
 		{
-			currentPlayer = player2;
+			setCurrentPlayer(player2);
 		}
 		else
 		{
-			currentPlayer = player1;
+			setCurrentPlayer(player1);
 		}
+	}
+
+	private void setCurrentPlayer(Player player)
+	{
+		currentPlayer = player;
+		player.yourTurnAt(this);
 	}
 
 	@Override
