@@ -62,7 +62,7 @@ public class SlotUI extends JPanel
 		final List<CoinUI> coinUIs = new ArrayList<>();
 		slot.getCoins().forEach(coin -> coinUIs.add(new CoinUI(coin)));
 
-		while (slot.getRowCount() > coinUIs.size())
+		while (coinUIs.size() < slot.getRowCount())
 		{
 			coinUIs.add(CoinUI.createPlaceholder());
 		}

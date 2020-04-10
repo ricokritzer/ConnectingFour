@@ -10,11 +10,11 @@ public class GameFieldImpl implements GameField
 {
 	private List<Slot> slots = new ArrayList<>();
 
-	public GameFieldImpl(int slotCount)
+	public GameFieldImpl(int slotCount, int rows)
 	{
 		for (int i = 0; i < slotCount; i++)
 		{
-			slots.add(new SlotImpl(slotCount));
+			slots.add(new SlotImpl(rows));
 		}
 	}
 

@@ -1,5 +1,8 @@
 package connectfour.examples;
 
+import javax.swing.JOptionPane;
+
+import connectfour.interfaces.Coin;
 import connectfour.interfaces.Game;
 import connectfour.interfaces.GameField;
 import connectfour.interfaces.Player;
@@ -25,7 +28,7 @@ public class GameImpl implements Game
 
 		this.currentPlayer = player1;
 
-		gameField = new GameFieldImpl(slots);
+		gameField = new GameFieldImpl(slots, rows);
 	}
 
 	@Override
@@ -37,13 +40,59 @@ public class GameImpl implements Game
 	@Override
 	public void throwCoinInto(Slot slot)
 	{
-		if (slot.getCoins().size() <= rowCount)
+		if (slot.getCoins().size() < rowCount)
 		{
 			// noch Patz im Schacht
 			slot.throwCoinOf(currentPlayer);
 
+			checkGameEnds();
+
 			nextPlayer();
 		}
+	}
+
+	private void checkGameEnds()
+	{
+		boolean[][] gameField = getGameFieldAs2DArray();
+
+		if (checkHorizontalGameEnd(gameField) || checkVerticalGameEnd(gameField) || checkDiagonalGameEnd(gameField))
+		{
+			JOptionPane.showMessageDialog(null, currentPlayer.getName() + " hat gewonnen");
+		}
+	}
+
+	private boolean[][] getGameFieldAs2DArray()
+	{
+		boolean[][] gameField = new boolean[getSlotCount()][getRowCount()]; // quasi eine Tabelle
+		for (int x = 0; x < this.gameField.getSlots().size(); x++)
+		{
+			Slot slot = this.gameField.getSlots().get(x);
+
+			for (int y = 0; y < slot.getCoins().size(); y++)
+			{
+				Coin coin = slot.getCoins().get(y);
+				gameField[x][y] = coin.getOwner() == currentPlayer;
+			}
+		}
+		return gameField;
+	}
+
+	private boolean checkHorizontalGameEnd(boolean[][] gameField)
+	{
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	private boolean checkDiagonalGameEnd(boolean[][] gameField)
+	{
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	private boolean checkVerticalGameEnd(boolean[][] gameField)
+	{
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 	private void nextPlayer()
