@@ -6,7 +6,7 @@ public interface Game
 
 	GameField getGameField();
 
-	void throwCoinOf(Player player, Slot intoSlot);
+	void throwCoinInto(Slot slot);
 
 	int getRowCount();
 
