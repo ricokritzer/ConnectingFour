@@ -2,7 +2,6 @@ package connectfour.examples;
 
 import javax.swing.JOptionPane;
 
-import connectfour.interfaces.Coin;
 import connectfour.interfaces.Game;
 import connectfour.interfaces.GameField;
 import connectfour.interfaces.Player;
@@ -45,54 +44,55 @@ public class GameImpl implements Game
 			// noch Patz im Schacht
 			slot.throwCoinOf(currentPlayer);
 
-			checkGameEnds();
+			int x = gameField.getSlots().indexOf(slot);
+			int y = slot.getCoins().size() - 1;
+
+			checkGameEnds(x, y);
 
 			nextPlayer();
 		}
 	}
 
-	private void checkGameEnds()
+	private void checkGameEnds(int x, int y)
 	{
-		boolean[][] gameField = getGameFieldAs2DArray();
-
-		if (checkHorizontalGameEnd(gameField) || checkVerticalGameEnd(gameField) || checkDiagonalGameEnd(gameField))
+		if (gameEndsInc(x, y) || gameEndsDesc(x, y) || gameEndsHorizontal(x, y) || gameEndsVertical(x, y))
 		{
 			JOptionPane.showMessageDialog(null, currentPlayer.getName() + " hat gewonnen");
 		}
 	}
 
-	private boolean[][] getGameFieldAs2DArray()
+	private boolean gameEndsInc(int x, int y)
 	{
-		boolean[][] gameField = new boolean[getSlotCount()][getRowCount()]; // quasi eine Tabelle
-		for (int x = 0; x < this.gameField.getSlots().size(); x++)
+		return countCoinsInDirection(x, y, -1, -1) + 1 + countCoinsInDirection(x, y, 1, 1) >= 4;
+	}
+
+	private boolean gameEndsDesc(int x, int y)
+	{
+		return countCoinsInDirection(x, y, -1, 1) + 1 + countCoinsInDirection(x, y, 1, -1) >= 4;
+	}
+
+	private boolean gameEndsVertical(int x, int y)
+	{
+		return countCoinsInDirection(x, y, 0, -1) + 1 + countCoinsInDirection(x, y, 0, 1) >= 4;
+	}
+
+	private boolean gameEndsHorizontal(int x, int y)
+	{
+		return countCoinsInDirection(x, y, -1, 0) + 1 + countCoinsInDirection(x, y, 1, 0) >= 4;
+	}
+
+	private int countCoinsInDirection(int xCoordinate, int yCoordinate, int xDelta, int yDelta)
+	{
+		int x = xCoordinate + xDelta;
+		int y = yCoordinate + yDelta;
+		if (gameField.isCoinFrom(currentPlayer, x, y))
 		{
-			Slot slot = this.gameField.getSlots().get(x);
-
-			for (int y = 0; y < slot.getCoins().size(); y++)
-			{
-				Coin coin = slot.getCoins().get(y);
-				gameField[x][y] = coin.getOwner() == currentPlayer;
-			}
+			return countCoinsInDirection(x, y, xDelta, yDelta) + 1;
 		}
-		return gameField;
-	}
-
-	private boolean checkHorizontalGameEnd(boolean[][] gameField)
-	{
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	private boolean checkDiagonalGameEnd(boolean[][] gameField)
-	{
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	private boolean checkVerticalGameEnd(boolean[][] gameField)
-	{
-		// TODO Auto-generated method stub
-		return false;
+		else
+		{
+			return 0;
+		}
 	}
 
 	private void nextPlayer()
