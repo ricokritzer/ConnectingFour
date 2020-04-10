@@ -1,7 +1,5 @@
 package connectfour.examples;
 
-import java.awt.Color;
-import java.awt.Component;
 import java.awt.GridLayout;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -10,9 +8,7 @@ import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-import connectfour.interfaces.Coin;
 import connectfour.interfaces.Game;
-import connectfour.interfaces.Player;
 import connectfour.interfaces.Slot;
 
 public class SlotUI extends JPanel
@@ -42,18 +38,6 @@ public class SlotUI extends JPanel
 		update();
 	}
 
-	private Component createFieldUI(Coin coin)
-	{
-		final JPanel pnlCoin = new JPanel();
-		pnlCoin.setBackground(coin.getColor());
-		return pnlCoin;
-	}
-
-	private Player noPlayer()
-	{
-		return new PlayerLocal("no Player", Color.WHITE);
-	}
-
 	public void update()
 	{
 		this.removeAll(); // entferne alles bisherige
@@ -61,17 +45,17 @@ public class SlotUI extends JPanel
 		this.setLayout(new GridLayout(slot.getRowCount() + 1, 1, spaceBetweenCells, spaceBetweenCells)); // +1 für den
 		// Button
 
-		final List<Coin> coins = new ArrayList<>();
-		coins.addAll(slot.getCoins());
+		final List<CoinUI> coinUIs = new ArrayList<>();
+		slot.getCoins().forEach(coin -> coinUIs.add(new CoinUI(coin)));
 
-		while (slot.getRowCount() > coins.size())
+		while (slot.getRowCount() > coinUIs.size())
 		{
-			coins.add(new CoinImpl(noPlayer()));
+			coinUIs.add(CoinUI.createPlaceholder());
 		}
 
-		Collections.reverse(coins); // wir beginnen oben zu zeichnen
+		Collections.reverse(coinUIs); // wir beginnen oben zu zeichnen
 		this.add(createInsertButton(game));
-		coins.forEach(field -> this.add(createFieldUI(field)));
+		coinUIs.forEach(coinUI -> this.add(coinUI));
 
 		this.revalidate();
 		this.repaint();
