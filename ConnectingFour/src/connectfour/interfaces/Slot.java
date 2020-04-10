@@ -7,4 +7,6 @@ public interface Slot
 	List<FieldStatus> getFields();
 
 	void throwCoinOf(Player player);
+
+	int getRowCount();
 }
